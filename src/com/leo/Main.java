@@ -1,48 +1,36 @@
 package com.leo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-
-    public static void main(String[] args) {
-        // write your code here
-//You will encrypt a message and save it to a file. You will read from the file and decrypt the message, printing it to the console.
-
-//        File file2 = new File("resource");
-//        file2.mkdir();
-//        file2 = new File("resource/file.txt");
-//        file2.createNewFile();
-//        FileWriter fw = new FileWriter("resource/file.txt");
-//        fw.write("This is a test");
-//        fw.close();
-
-        //encrypt or decrypt
-        //if encrypt. User writes a sentence. the algo will transfer that sentence into a new one:
-        // each letter will shifted by given number
-        // for example: if the number is 2. a -> c
-        //Starts from capital letters and moves to small lowercase letters which is a total of 52 letters.
-        //user input: a sentence
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Do you wish to encrypt or decrypt a message? ");
-        String input = scanner.nextLine();
+        System.out.println(" What do you want to do?\n 1. Encrypt \n 2. Decrypt");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
 
-        if(input.equals("encrypt")){
-            System.out.println("Enter your message: ");
-            String message = scanner.nextLine();
-            System.out.println("Enter the key number (1-52)");
-            int num = scanner.nextInt();
-            System.out.println("Your translated text is: ");
-            System.out.println(message);
+        if(choice == 1)
+        {
+            System.out.println("Enter a text");
+            String inputText = scanner.nextLine().toUpperCase();
+            System.out.println("Enter a key ");
+            int key = scanner.nextInt();
+            Encoding encoding = new Encoding(inputText,key);
+            System.out.println(String.format("Your encrypted text is:  %s",encoding.encode()));
 
-        }else if(input.equals("decrypt")){
-            System.out.println("Enter your message: ");
-            String message = scanner.nextLine();
-            System.out.println("Enter the key number (1-52)");
-            int num = scanner.nextInt();
-            System.out.println("Your translated text is: ");
-            System.out.println(message);
         }
-
+        else if(choice == 2)
+        {
+            System.out.println("Enter a key ");
+            int key = scanner.nextInt();
+            Decoding decoding = new Decoding(key);
+            System.out.println(String.format("Your decrypted text is:  %s",decoding.decode()));
+        }
+        else
+        {
+            System.out.println("Input not known");
+        }
     }
 }
